@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusNotes | Student Productivity</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">C</span>
+            <h2>CampusNotes</h2>
+        </div>
+
+        <p class="menu-heading">WORKSPACE</p>
+
+        <nav>
+            <a href="#" class="nav-link active" data-page="dashboard">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#" class="nav-link" data-page="notes">
+                <span>▤</span> My Notes
+            </a>
+
+            <a href="#" class="nav-link" data-page="favourites">
+                <span>☆</span> Favourites
+            </a>
+
+            <a href="#" class="nav-link" data-page="subjects">
+                <span>▣</span> Subjects
+            </a>
+
+            <p class="menu-heading">PRODUCTIVITY</p>
+
+            <a href="#" class="nav-link" data-page="planner">
+                <span>▦</span> Study Planner
+            </a>
+
+            <a href="#" class="nav-link" data-page="analytics">
+                <span>▥</span> Study Analytics
+            </a>
+
+            <a href="#" class="nav-link" data-page="rewards">
+                <span>🏆</span> Streak & Rewards
+            </a>
+
+            <a href="#" class="nav-link" data-page="focus">
+                <span>⏱</span> Focus Mode
+            </a>
+
+            <a href="#" class="nav-link" data-page="assistant">
+                <span>✦</span> AI Study Assistant
+            </a>
+
+            <a href="#" class="nav-link" data-page="exams">
+                <span>📅</span> Exam Preparation
+            </a>
+
+            <p class="menu-heading">ACCOUNT</p>
+
+            <a href="#" class="nav-link" data-page="profile">
+                <span>◉</span> My Profile
+            </a>
+
+            <a href="#" class="nav-link" data-page="settings">
+                <span>⚙</span> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="student-profile">
+                <div class="avatar" id="sidebarAvatar">S</div>
+                <div>
+                    <strong id="sidebarName">Student</strong>
+                    <small>Campus Member</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageDescription">
+                    Welcome back! Manage your study notes here.
+                </p>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="secondary-btn" id="themeToggle">
+                    ◐ Dark Mode
+                </button>
+
+                <button class="secondary-btn" id="exportTxtBtn">
+                    ↓ Export
+                </button>
+
+                <button class="primary-btn" id="addNoteBtn">
+                    + Add New Note
+                </button>
+            </div>
+        </header>
+
+
+        <!-- DASHBOARD / NOTES / FAVOURITES -->
+        <section id="dashboardPage" class="page-section">
+
+            <!-- STATISTICS -->
+            <section class="stats-grid" id="statsSection">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">▤</div>
+                    <p>Total Notes</p>
+                    <h2 id="totalNotes">0</h2>
+                    <small>Your saved notes</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">▣</div>
+                    <p>Total Subjects</p>
+                    <h2 id="totalSubjects">0</h2>
+                    <small>Subjects covered</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">☆</div>
+                    <p>Favourites</p>
+                    <h2 id="totalFavourites">0</h2>
+                    <small>Important notes</small>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">✓</div>
+                    <p>Completed Tasks</p>
+                    <h2 id="completedTasks">0</h2>
+                    <small>Study tasks completed</small>
+                </div>
+
+            </section>
+
+            <!-- NOTES TOOLBAR -->
+            <section id="notesWorkspace">
+
+                <section class="notes-toolbar">
+                    <div>
+                        <h2 id="sectionTitle">Recent Notes</h2>
+                        <p>Access and organize your study materials.</p>
+                    </div>
+
+                    <div class="toolbar-actions">
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search your notes..."
+                        >
+
+                        <select id="subjectFilter">
+                            <option value="all">All Subjects</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- NOTES -->
+                <section id="notesList" class="notes-grid"></section>
+
+                <!-- EMPTY STATE -->
+                <section id="emptyState" class="empty-state">
+                    <div class="empty-icon">▤</div>
+                    <h3>No notes found</h3>
+                    <p id="emptyMessage">
+                        Start by adding your first study note.
+                    </p>
+
+                    <button class="primary-btn" id="emptyAddBtn">
+                        + Create Your First Note
+                    </button>
+                </section>
+
+            </section>
+        </section>
+
+
+        <!-- SUBJECT ORGANIZATION -->
+        <section id="subjectsPage" class="page-section" hidden>
+
+            <div class="section-intro">
+                <h2>My Subjects</h2>
+                <p>Organize and explore your notes by subject.</p>
+            </div>
+
+            <div id="subjectCards" class="subject-grid"></div>
+
+            <div class="subject-actions">
+                <h3>Subject Overview</h3>
+                <p>Select a subject to view its study notes.</p>
+            </div>
+
+            <button class="secondary-btn" id="viewAllSubjectsBtn">
+                View All Notes
+            </button>
+
+        </section>
+
+
+        <!-- STUDY PLANNER -->
+        <section id="plannerPage" class="page-section" hidden>
+
+            <div class="section-intro">
+                <h2>Study Planner</h2>
+                <p>Plan your study sessions and track your deadlines.</p>
+            </div>
+
+            <div class="planner-layout">
+
+                <!-- CALENDAR -->
+                <div class="calendar-card">
+
+                    <div class="calendar-header">
+                        <button id="prevMonthBtn" class="secondary-btn">
+                            ‹
+                        </button>
+
+                        <h2 id="calendarMonth">Month Year</h2>
+
+                        <button id="nextMonthBtn" class="secondary-btn">
+                            ›
+                        </button>
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+
+                    <div id="calendarGrid" class="calendar-grid"></div>
+
+                </div>
+
+                <!-- TASKS -->
+                <div class="task-card">
+
+                    <div class="task-header">
+                        <div>
+                            <h2>Study Tasks</h2>
+                            <p>Your upcoming study activities</p>
+                        </div>
+
+                        <button class="primary-btn" id="addTaskBtn">
+                            + Add Task
+                        </button>
+                    </div>
+
+                    <div class="task-summary">
+                        <div>
+                            <strong id="totalTasks">0</strong>
+                            <small>Total Tasks</small>
+                        </div>
+
+                        <div>
+                            <strong id="pendingTasks">0</strong>
+                            <small>Pending</small>
+                        </div>
+
+                        <div>
+                            <strong id="plannerCompleted">0</strong>
+                            <small>Completed</small>
+                        </div>
+                    </div>
+
+                    <div id="taskList" class="task-list"></div>
+
+                    <div id="emptyTasks" class="empty-state">
+                        <h3>No study tasks yet</h3>
+                        <p>Add a task to start planning your studies.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- STUDY STREAK & REWARDS -->
+        <section id="rewardsPage" class="page-section" hidden>
+            <div class="section-intro">
+                <h2>Study Streak & Rewards</h2>
+                <p>Build a consistent study habit and celebrate your progress.</p>
+            </div>
+
+            <div class="rewards-summary-grid">
+                <article class="reward-stat-card">
+                    <span class="reward-stat-icon">🔥</span>
+                    <p>Current Streak</p>
+                    <h2 id="currentStreak">0 days</h2>
+                    <small>Consecutive study days</small>
+                </article>
+                <article class="reward-stat-card">
+                    <span class="reward-stat-icon">⭐</span>
+                    <p>Total XP</p>
+                    <h2 id="totalXP">0</h2>
+                    <small>Points earned</small>
+                </article>
+                <article class="reward-stat-card">
+                    <span class="reward-stat-icon">🏅</span>
+                    <p>Longest Streak</p>
+                    <h2 id="longestStreak">0 days</h2>
+                    <small>Your personal best</small>
+                </article>
+            </div>
+
+            <div class="rewards-layout">
+                <section class="rewards-panel checkin-panel">
+                    <div class="rewards-panel-heading">
+                        <div>
+                            <h3>Daily Study Check-in</h3>
+                            <p>Check in once a day to maintain your streak.</p>
+                        </div>
+                        <span class="reward-large-icon">🔥</span>
+                    </div>
+                    <p class="checkin-message" id="checkinMessage">Your next study streak starts today.</p>
+                    <button type="button" class="primary-btn" id="dailyCheckinBtn">＋ Check in today (+10 XP)</button>
+                </section>
+
+                <section class="rewards-panel goal-panel">
+                    <div class="rewards-panel-heading">
+                        <div>
+                            <h3>Daily Study Goal</h3>
+                            <p>Complete study tasks to reach your daily target.</p>
+                        </div>
+                        <span class="reward-large-icon">🎯</span>
+                    </div>
+                    <div class="goal-progress-track">
+                        <div class="goal-progress-fill" id="dailyGoalProgress"></div>
+                    </div>
+                    <p class="goal-progress-label" id="dailyGoalLabel">0 of 2 tasks completed today</p>
+                    <div class="goal-setting">
+                        <label for="dailyGoalInput">Daily task target</label>
+                        <input type="number" id="dailyGoalInput" min="1" max="20" value="2">
+                        <button type="button" class="secondary-btn" id="saveDailyGoalBtn">Save goal</button>
+                    </div>
+                </section>
+            </div>
+
+            <section class="rewards-panel achievements-panel">
+                <div class="rewards-panel-heading">
+                    <div>
+                        <h3>Achievement Badges</h3>
+                        <p>Unlock badges as you make progress.</p>
+                    </div>
+                    <span class="reward-large-icon">🏆</span>
+                </div>
+                <div class="achievement-grid" id="achievementGrid"></div>
+            </section>
+
+            <p class="rewards-footnote">Your rewards are saved in this browser on this device. Clearing browser site data may remove them.</p>
+        </section>
+
+        <!-- FOCUS MODE / POMODORO -->
+        <section id="focusPage" class="page-section" hidden>
+            <div class="section-intro">
+                <h2>Focus Mode</h2>
+                <p>Work in focused intervals, take breaks, and build a better study routine.</p>
+            </div>
+
+            <div class="focus-layout">
+                <section class="focus-timer-card">
+                    <div class="focus-mode-tabs" role="group" aria-label="Choose timer mode">
+                        <button type="button" class="focus-mode-btn active" data-focus-mode="focus">Focus</button>
+                        <button type="button" class="focus-mode-btn" data-focus-mode="short">Short Break</button>
+                        <button type="button" class="focus-mode-btn" data-focus-mode="long">Long Break</button>
+                    </div>
+                    <div class="focus-timer-ring" id="focusTimerRing">
+                        <div class="focus-timer-inner">
+                            <div class="focus-mode-label" id="focusModeLabel">FOCUS SESSION</div>
+                            <div class="focus-time" id="focusTime">25:00</div>
+                            <div class="focus-status" id="focusStatus">Ready when you are</div>
+                        </div>
+                    </div>
+                    <div class="focus-controls">
+                        <button type="button" class="primary-btn" id="focusStartBtn">Start Focus</button>
+                        <button type="button" class="secondary-btn" id="focusResetBtn">Reset</button>
+                    </div>
+                    <p class="focus-tip">Tip: Put your phone away and work on one task until the timer ends.</p>
+                </section>
+
+                <aside class="focus-side-column">
+                    <section class="focus-info-card">
+                        <h3>Session Settings</h3>
+                        <p>Choose how long each interval should last.</p>
+                        <div class="focus-setting-row">
+                            <label for="focusMinutesInput">Focus (minutes)</label>
+                            <input type="number" id="focusMinutesInput" min="1" max="90" value="25">
+                        </div>
+                        <div class="focus-setting-row">
+                            <label for="shortBreakInput">Short break (minutes)</label>
+                            <input type="number" id="shortBreakInput" min="1" max="30" value="5">
+                        </div>
+                        <div class="focus-setting-row">
+                            <label for="longBreakInput">Long break (minutes)</label>
+                            <input type="number" id="longBreakInput" min="1" max="60" value="15">
+                        </div>
+                        <button type="button" class="secondary-btn focus-save-settings" id="saveFocusSettingsBtn">Save durations</button>
+                    </section>
+
+                    <section class="focus-info-card focus-stats-card">
+                        <h3>Your Focus Progress</h3>
+                        <div class="focus-stat-line"><span>Completed focus sessions</span><strong id="focusSessionsCount">0</strong></div>
+                        <div class="focus-stat-line"><span>Total focus time</span><strong id="focusTotalTime">0 min</strong></div>
+                        <div class="focus-stat-line"><span>Today's sessions</span><strong id="focusTodayCount">0</strong></div>
+                        <p class="focus-xp-note">Complete a focus session to earn <strong>10 XP</strong> in Streak & Rewards.</p>
+                    </section>
+                </aside>
+            </div>
+        </section>
+
+        <!-- AI STUDY ASSISTANT -->
+        <section id="assistantPage" class="page-section" hidden>
+            <div class="section-intro">
+                <h2>AI Study Assistant</h2>
+                <p>Turn your saved notes into summaries, revision questions and flashcards.</p>
+            </div>
+
+            <div class="assistant-layout">
+                <section class="assistant-workspace">
+                    <div class="assistant-heading">
+                        <div class="assistant-icon">✦</div>
+                        <div>
+                            <h3>Your Study Assistant</h3>
+                            <p>Choose a note or enter your own study material to get started.</p>
+                        </div>
+                    </div>
+
+                    <label class="assistant-label" for="assistantNoteSelect">Choose a saved note</label>
+                    <select id="assistantNoteSelect" class="assistant-select">
+                        <option value="">Use my own text below</option>
+                    </select>
+
+                    <label class="assistant-label" for="assistantQuestion">Your question or study material</label>
+                    <textarea id="assistantQuestion" class="assistant-textarea" rows="6"
+                        placeholder="Paste your study material or ask a question about your selected note..."></textarea>
+
+                    <div class="assistant-actions">
+                        <button type="button" class="primary-btn" data-assistant-action="ask">Ask Assistant</button>
+                        <button type="button" class="secondary-btn" data-assistant-action="summarize">Summarize</button>
+                        <button type="button" class="secondary-btn" data-assistant-action="explain">Explain Simply</button>
+                        <button type="button" class="secondary-btn" data-assistant-action="quiz">Make a Quiz</button>
+                        <button type="button" class="secondary-btn" data-assistant-action="flashcards">Create Flashcards</button>
+                    </div>
+
+                    <div class="assistant-output-wrap">
+                        <div class="assistant-output-heading">
+                            <h3>Study Response</h3>
+                            <button type="button" class="text-btn" id="copyAssistantResponseBtn">Copy response</button>
+                        </div>
+                        <div id="assistantOutput" class="assistant-output" aria-live="polite">
+                            <p class="assistant-placeholder">Your study response will appear here. Select a note and choose an action above.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="assistant-side-card">
+                    <h3>What you can do</h3>
+                    <div class="assistant-tip"><span>📝</span><div><strong>Summarize</strong><p>Get the main points from your study material.</p></div></div>
+                    <div class="assistant-tip"><span>💡</span><div><strong>Explain Simply</strong><p>Review the important ideas in easier language.</p></div></div>
+                    <div class="assistant-tip"><span>❓</span><div><strong>Practice</strong><p>Create revision questions from your notes.</p></div></div>
+                    <div class="assistant-tip"><span>🗂️</span><div><strong>Flashcards</strong><p>Make quick question-and-answer cards.</p></div></div>
+                    <p class="assistant-disclaimer">This version works locally in your browser using your notes and text. It does not connect to an external AI service, and it does not send your study material anywhere.</p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- EXAM PREPARATION TRACKER -->
+        <section id="examsPage" class="page-section" hidden>
+            <div class="section-intro">
+                <h2>Exam Preparation Tracker</h2>
+                <p>Plan upcoming exams, organize subject revision and track your preparation progress.</p>
+            </div>
+
+            <div class="exam-summary-grid">
+                <div class="exam-stat-card"><span class="exam-stat-icon">📚</span><div><strong id="examTotalCount">0</strong><small>Total Exams</small></div></div>
+                <div class="exam-stat-card"><span class="exam-stat-icon">⏳</span><div><strong id="examUpcomingCount">0</strong><small>Upcoming Exams</small></div></div>
+                <div class="exam-stat-card"><span class="exam-stat-icon">✅</span><div><strong id="examCompletedCount">0</strong><small>Completed Exams</small></div></div>
+                <div class="exam-stat-card"><span class="exam-stat-icon">📈</span><div><strong id="examAverageProgress">0%</strong><small>Average Preparation</small></div></div>
+            </div>
+
+            <div class="exam-main-grid">
+                <section class="exam-panel">
+                    <div class="exam-panel-heading">
+                        <div><h3>Add an Exam</h3><p>Enter your exam details and preparation target.</p></div>
+                    </div>
+                    <form id="examForm" class="exam-form">
+                        <label for="examSubject">Subject name</label>
+                        <input id="examSubject" type="text" required maxlength="80" placeholder="e.g. Data Structures">
+                        <label for="examType">Exam type</label>
+                        <select id="examType">
+                            <option value="Mid-Term">Mid-Term</option>
+                            <option value="End-Term">End-Term</option>
+                            <option value="Quiz">Quiz</option>
+                            <option value="Practical">Practical</option>
+                            <option value="Assignment">Assignment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label for="examDate">Exam date</label>
+                        <input id="examDate" type="date" required>
+                        <label for="examProgress">Preparation progress: <span id="examProgressValue">0%</span></label>
+                        <input id="examProgress" type="range" min="0" max="100" step="5" value="0">
+                        <label for="examNotes">Topics / preparation notes (optional)</label>
+                        <textarea id="examNotes" rows="3" maxlength="1000" placeholder="List chapters, topics or revision reminders..."></textarea>
+                        <button type="submit" class="primary-btn">Add Exam</button>
+                    </form>
+                </section>
+
+                <section class="exam-panel exam-list-panel">
+                    <div class="exam-panel-heading exam-list-heading">
+                        <div><h3>Your Exam Schedule</h3><p>Update preparation or mark exams complete.</p></div>
+                        <select id="examFilter" aria-label="Filter exams">
+                            <option value="all">All exams</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div id="examList" class="exam-list">
+                        <div class="exam-empty">No exams added yet. Add your first exam to get started.</div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- ANALYTICS -->
+        <section id="analyticsPage" class="page-section" hidden>
+
+            <div class="section-intro">
+                <h2>Your Study Analytics</h2>
+                <p>Understand your learning and study progress.</p>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <p>Total Notes</p>
+                    <h2 id="analyticsNotes">0</h2>
+                    <small>Notes created</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Subjects</p>
+                    <h2 id="analyticsSubjects">0</h2>
+                    <small>Subjects studied</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Tasks Completed</p>
+                    <h2 id="analyticsCompleted">0</h2>
+                    <small>Completed activities</small>
+                </div>
+
+                <div class="stat-card">
+                    <p>Task Progress</p>
+                    <h2 id="analyticsProgress">0%</h2>
+                    <small>Completion rate</small>
+                </div>
+
+            </div>
+
+            <div class="analytics-grid">
+
+                <div class="analytics-card">
+                    <h3>Notes by Subject</h3>
+                    <div id="subjectAnalytics"></div>
+                </div>
+
+                <div class="analytics-card">
+                    <h3>Study Progress</h3>
+                    <div id="progressAnalytics"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROFILE -->
+        <section id="profilePage" class="page-section" hidden>
+
+            <div class="section-intro">
+                <h2>My Profile</h2>
+                <p>Manage your student information.</p>
+            </div>
+
+            <div class="profile-card">
+
+                <div class="profile-avatar" id="profileAvatar">
+                    S
+                </div>
+
+                <form id="profileForm">
+
+                    <label for="profileName">Full Name</label>
+                    <input
+                        type="text"
+                        id="profileName"
+                        placeholder="Enter your name"
+                    >
+
+                    <label for="profileEmail">Email Address</label>
+                    <input
+                        type="email"
+                        id="profileEmail"
+                        placeholder="Enter your email"
+                    >
+
+                    <label for="profileCourse">Course</label>
+                    <input
+                        type="text"
+                        id="profileCourse"
+                        placeholder="Example: B.Tech Computer Science"
+                    >
+
+                    <label for="profileYear">Academic Year</label>
+                    <select id="profileYear">
+                        <option value="">Select year</option>
+                        <option value="First Year">First Year</option>
+                        <option value="Second Year">Second Year</option>
+                        <option value="Third Year">Third Year</option>
+                        <option value="Fourth Year">Fourth Year</option>
+                    </select>
+
+                    <button type="submit" class="primary-btn">
+                        Save Profile
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+        <section id="settingsPage" class="page-section" hidden>
+
+            <div class="section-intro">
+                <h2>Settings</h2>
+                <p>Personalize your CampusNotes experience.</p>
+            </div>
+
+            <div class="settings-card">
+
+                <div class="setting-item">
+                    <div>
+                        <h3>Appearance</h3>
+                        <p>Switch between light and dark mode.</p>
+                    </div>
+
+                    <button id="settingsThemeToggle" class="secondary-btn">
+                        Toggle Theme
+                    </button>
+                </div>
+
+                <hr>
+
+                <div class="setting-item">
+                    <div>
+                        <h3>Export Study Notes</h3>
+                        <p>Download your notes as a text file.</p>
+                    </div>
+
+                    <button id="settingsExportBtn" class="secondary-btn">
+                        Export Notes
+                    </button>
+                </div>
+
+                <hr>
+
+                <div class="setting-item">
+                    <div>
+                        <h3>Print Notes</h3>
+                        <p>Print your study notes or save them as PDF.</p>
+                    </div>
+
+                    <button id="printNotesBtn" class="secondary-btn">
+                        Print / Save PDF
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+
+<!-- ADD / EDIT NOTE MODAL -->
+<div class="modal" id="noteModal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2 id="modalTitle">Add New Note</h2>
+            <button class="close-btn" id="closeModal">×</button>
+        </div>
+
+        <form id="noteForm">
+
+            <label for="noteTitle">Note Title</label>
+            <input
+                type="text"
+                id="noteTitle"
+                placeholder="Enter note title"
+                required
+            >
+
+            <label for="noteSubject">Subject</label>
+            <input
+                type="text"
+                id="noteSubject"
+                placeholder="Example: Computer Science"
+                required
+            >
+
+            <label for="noteContent">Note Content</label>
+            <textarea
+                id="noteContent"
+                rows="6"
+                placeholder="Write your study notes here..."
+                required
+            ></textarea>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="cancelBtn">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Save Note
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<!-- ADD STUDY TASK MODAL -->
+<div class="modal" id="taskModal">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Add Study Task</h2>
+            <button class="close-btn" id="closeTaskModal">×</button>
+        </div>
+
+        <form id="taskForm">
+
+            <label for="taskTitle">Task Name</label>
+            <input
+                type="text"
+                id="taskTitle"
+                placeholder="Example: Complete Java assignment"
+                required
+            >
+
+            <label for="taskSubject">Subject</label>
+            <input
+                type="text"
+                id="taskSubject"
+                placeholder="Example: Java"
+                required
+            >
+
+            <label for="taskDate">Deadline</label>
+            <input type="date" id="taskDate" required>
+
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+            </select>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="cancelTaskBtn">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn">
+                    Save Task
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
