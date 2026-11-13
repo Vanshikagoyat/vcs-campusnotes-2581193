@@ -707,6 +707,26 @@ function renderNotes() {
         escapeText(note.content).toLowerCase().includes(searchText) ||
         escapeText(note.subject).toLowerCase().includes(searchText)
     );
+    // SORT NOTES
+const sortValue = $("sortNotes")
+    ? $("sortNotes").value
+    : "newest";
+
+if (sortValue === "newest") {
+    filteredNotes.sort((a, b) =>
+        new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+    );
+} else if (sortValue === "oldest") {
+    filteredNotes.sort((a, b) =>
+        new Date(a.createdAt || 0) - new Date(b.createdAt || 0)
+    );
+} else if (sortValue === "title") {
+    filteredNotes.sort((a, b) =>
+        (a.title || "").localeCompare(b.title || "", undefined, {
+            sensitivity: "base"
+        })
+    );
+}
 
     if (filteredNotes.length === 0) {
         if (emptyState) emptyState.hidden = false;
@@ -777,6 +797,10 @@ if ($("search")) {
 
 if ($("subjectFilter")) {
     $("subjectFilter").addEventListener("change", renderNotes);
+}
+// NOTES SORTING
+if ($("sortNotes")) {
+    $("sortNotes").addEventListener("change", renderNotes);
 }
 
 // ==========================================
